@@ -1,0 +1,77 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+# ======================= additional ignore patterns =======================
+### Java & Compiled Files ###
+*.class
+*.log
+*.ctxt
+
+### Packages & Archives ###
+# Ignore packaged applications (if you ever build jars/wars locally)
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### JVM Crash Logs ###
+hs_err_pid*
+replay_pid*
+
+### Gradle ###
+# (Even if using Maven, good to have if you ever switch or run a gradle wrapper)
+.gradle/
+
+### OS Specific ###
+# Mac
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+### Local Environment / Secrets ###
+# Ignore local-only Spring Boot property files (uncomment if you use them)
+# application-local.properties
+# application-local.yml
+# application-secret.properties
+# application-secret.yml
+.env
