@@ -76,4 +76,17 @@ public class CartItemService {
                 .orElse(List.of());
     }
 
+    public void clearCart(String userId) {
+        userRepository.findById(Long.valueOf(userId)).ifPresent(
+            user -> cartItemRepository.deleteByUser(user)
+        );
+
+        // or,
+        // userRepository.findById(Long.valueOf(userId)).ifPresent(
+        //     cartItemRepository::deleteByUser
+        // );
+
+        
+    }
+
 }
