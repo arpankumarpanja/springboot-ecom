@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 
 import com.app.ecom.dto.UserRequest;
 import com.app.ecom.dto.UserResponse;
+import com.app.ecom.exception.NotFoundException;
 import com.app.ecom.model.User;
 import com.app.ecom.service.UserService;
 
@@ -36,7 +38,8 @@ public class UserController {
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new NotFoundException("User not found "+id));
+                // .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
