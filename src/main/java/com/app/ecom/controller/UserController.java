@@ -54,17 +54,15 @@ public class UserController {
         return userService.updateUser(id, user);
     }
 
-    // @PostMapping("/login")
-    // public ResponseEntity<String> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
-    //     // Implement your login logic here, such as validating the user's credentials
-    //     // against the database and generating a JWT token if the credentials are valid.
-    //     // For simplicity, this example just returns a success message.
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
 
-    //     return ResponseEntity.ok("Login successful for user: " + userLoginRequest.getEmail());
-    // }
-
-    @GetMapping("/login")
-    public ResponseEntity<String> loginUser() {
-        return ResponseEntity.ok("Login successful for user");
+        // return ResponseEntity.ok("Login successful for user: " + userLoginRequest.getEmail());
+        return userService.verifyUser(userLoginRequest);
     }
+
+    // @GetMapping("/login")
+    // public ResponseEntity<String> loginUser() {
+    //     return ResponseEntity.ok("Login successful for user");
+    // }
 }

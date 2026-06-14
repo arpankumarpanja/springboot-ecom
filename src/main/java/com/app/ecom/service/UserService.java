@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.ecom.dto.AddressDto;
+import com.app.ecom.dto.UserLoginRequest;
 import com.app.ecom.dto.UserRequest;
 import com.app.ecom.dto.UserResponse;
 import com.app.ecom.model.Address;
@@ -21,6 +26,8 @@ import lombok.AllArgsConstructor;
 public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private AuthenticationManager authenticationManager;
+    private JwtService jwtService;
 
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
@@ -85,5 +92,19 @@ public class UserService {
         existingAddress.setCountry(updatedUser.getAddress().getCountry());
         existingAddress.setZipCode(updatedUser.getAddress().getZipCode());
     }
+
+    public ResponseEntity<String> verifyUser(UserLoginRequest userLoginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(userLoginRequest.getEmail(), userLoginRequest.getPassword())
+        );
+        if(authentication.isAuthenticated()) {
+            // return ResponseEntity.ok("Login successful for user: " + userLoginRequest.getEmail());
+            return jwtService.generateToken(userLoginRequest);
+        } else {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+    }
     
 }
+
+    
