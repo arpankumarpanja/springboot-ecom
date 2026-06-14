@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 
+import com.app.ecom.dto.UserLoginRequest;
 import com.app.ecom.dto.UserRequest;
 import com.app.ecom.dto.UserResponse;
 import com.app.ecom.exception.NotFoundException;
@@ -51,5 +52,19 @@ public class UserController {
     @PutMapping("/{id}")
     public UserResponse updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
         return userService.updateUser(id, user);
+    }
+
+    // @PostMapping("/login")
+    // public ResponseEntity<String> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
+    //     // Implement your login logic here, such as validating the user's credentials
+    //     // against the database and generating a JWT token if the credentials are valid.
+    //     // For simplicity, this example just returns a success message.
+
+    //     return ResponseEntity.ok("Login successful for user: " + userLoginRequest.getEmail());
+    // }
+
+    @GetMapping("/login")
+    public ResponseEntity<String> loginUser() {
+        return ResponseEntity.ok("Login successful for user");
     }
 }

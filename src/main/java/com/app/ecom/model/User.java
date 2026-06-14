@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.app.ecom.UserRole;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,10 @@ public class User {
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
+    private String password;
     private String phone;
 
     @NonNull

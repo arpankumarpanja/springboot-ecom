@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.ecom.dto.AddressDto;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
 
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
@@ -28,6 +30,7 @@ public class UserService {
 
     public UserResponse createUser(User user) {
         // userRepository.save(user);
+        user.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
         User createdUser = userRepository.save(user);
         return mapToUserResponse(createdUser);
     }
@@ -71,6 +74,7 @@ public class UserService {
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPassword(bcryptPasswordEncoder.encode(updatedUser.getPassword()));
         existingUser.setPhone(updatedUser.getPhone());
         // existingUser.setRole(updatedUser.getRole());
 
