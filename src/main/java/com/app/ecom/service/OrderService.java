@@ -14,8 +14,10 @@ import com.app.ecom.model.CartItem;
 import com.app.ecom.model.Order;
 import com.app.ecom.model.OrderItem;
 import com.app.ecom.model.OrderStatus;
+import com.app.ecom.model.Product;
 import com.app.ecom.model.User;
 import com.app.ecom.repository.OrderRepository;
+import com.app.ecom.repository.ProductRepository;
 import com.app.ecom.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class OrderService {
     private final CartItemService cartItemService;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
 
     @Transactional
     public Optional<OrderResponse> createOrder(String userId) {
@@ -62,6 +65,14 @@ public class OrderService {
         )).collect(Collectors.toList());
         order.setItems(orderItems);
         Order savedOrder = orderRepository.save(order);
+
+        // decrease the stock quantity from product table
+        for (CartItem cartItem : cartItems) {
+            Product product = cartItem.getProduct();
+            product.setStockQuantity(product.getStockQuantity() - cartItem.getQuantity());
+            // Assuming you have a ProductRepository to save the updated product
+            productRepository.save(product);
+        }
 
         // clear cart
         cartItemService.clearCart(userId);

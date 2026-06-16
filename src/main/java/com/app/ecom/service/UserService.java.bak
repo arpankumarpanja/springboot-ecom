@@ -48,7 +48,7 @@ public class UserService {
     }
 
     public UserResponse updateUser(Long id, UserRequest updatedUserRequest) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         updateUserFormRequest(existingUser, updatedUserRequest);
         // return userRepository.save(existingUser).map(this::mapToUserResponse).orElseThrow(() -> new RuntimeException("User not found after update"));
         return mapToUserResponse(userRepository.save(existingUser));
