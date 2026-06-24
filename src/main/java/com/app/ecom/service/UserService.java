@@ -99,7 +99,8 @@ public class UserService {
         );
         if(authentication.isAuthenticated()) {
             // return ResponseEntity.ok("Login successful for user: " + userLoginRequest.getEmail());
-            return jwtService.generateToken(userLoginRequest);
+            return ResponseEntity.ok(jwtService.generateToken(userLoginRequest));
+            // return jwtService.generateToken(userLoginRequest);
         } else {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
