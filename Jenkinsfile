@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Deploy to AWS EC2') {
             steps {
-                // 1. We completely remove 'sshagent' and use 'withCredentials' instead
+                // 1. We completely remove 'sshagent' and use 'withCredentials' instead 
                 withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'KEY_FILE', usernameVariable: 'USER')]) {
                     
                     // 2. We use the raw ssh command with the -i flag pointing to the temporary KEY_FILE 
