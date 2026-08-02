@@ -13,7 +13,7 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 # Copy ONLY the built jar file from Stage 1 into Stage 2
 COPY --from=build /app/target/*.jar app.jar
-# Expose port 8080 for the Spring Boot app
-EXPOSE 8080
+# Expose port 8088 for the Spring Boot app
+EXPOSE 8088
 # The command to start the application
 CMD ["java", "-jar", "app.jar"]
