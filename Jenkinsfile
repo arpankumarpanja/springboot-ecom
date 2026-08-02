@@ -16,7 +16,7 @@ pipeline {
                 // 1. We completely remove 'sshagent' and use 'withCredentials' instead
                 withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'KEY_FILE', usernameVariable: 'USER')]) {
                     
-                    // 2. We use the raw ssh command with the -i flag pointing to the temporary KEY_FILE
+                    // 2. We use the raw ssh command with the -i flag pointing to the temporary KEY_FILE 
                     sh """
                     ssh -i ${KEY_FILE} -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} '
                         # Check if the directory already exists
