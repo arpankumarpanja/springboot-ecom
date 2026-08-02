@@ -11,26 +11,32 @@ pipeline {
     }
 
     stages {
+        // stage('Clone Repo') {
+        //     steps {
+        //         // Jenkins pulls the code from GitHub to your localhost
+        //         git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
+        //     }
+        // }
+
         stage('Deploy to AWS EC2') {
             steps {
-                // 1. We completely remove 'sshagent' and use 'withCredentials' instead
-                withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'KEY_FILE', usernameVariable: 'USER')]) {
+                sshagent(credentials: [SSH_CREDENTIAL_ID]) {
                     
-                    // 2. We use the raw ssh command with the -i flag pointing to the temporary KEY_FILE
+                    // SSH into EC2, check if the folder exists, clone or pull the repo and run Docker Compose
                     sh """
-                    ssh -i ${KEY_FILE} -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} '
+                    ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} '
                         # Check if the directory already exists
                         if [ ! -d "${APP_DIR}" ]; then
                             # If it does not exist, clone the repo
                             git clone https://github.com/arpankumarpanja/springboot-ecom.git ${APP_DIR}
                             cd ${APP_DIR}
-                            # git pull origin main (NOTE: Changed // to # for bash comments)
+                            // git pull origin main
                             git checkout deploy
                             git pull origin monolithic
                         else
                             # If it does exist, navigate in and pull the latest changes
                             cd ${APP_DIR}
-                            # git pull origin main (NOTE: Changed // to # for bash comments)
+                            // git pull origin main
                             git checkout deploy
                             git pull origin monolithic
                         fi
