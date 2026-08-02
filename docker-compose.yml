@@ -28,7 +28,7 @@ services:
     build: . # Tells Compose to look for your Dockerfile in this directory
     container_name: springboot_container
     ports:
-      - "8080:8080" # Maps port 8080 on your EC2 to port 8080 inside Spring Boot
+      - "8088:8088" # Maps port 8088 on your EC2 to port 8088 inside Spring Boot
     environment:
       # Spring connects using the container name 'mysql_db' instead of 'localhost'
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/ecom

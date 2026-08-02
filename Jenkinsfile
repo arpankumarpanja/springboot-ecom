@@ -4,10 +4,10 @@ pipeline {
     environment {
         // Variables for your deployment
         EC2_USER = "ubuntu"
-        EC2_IP = "13.62.46.106" // Replace with your EC2 Public IP
+        EC2_IP = "16.16.166.43" // Replace with your EC2 Public IP
         SSH_CREDENTIAL_ID = "aws-ec2-key" // The ID from Jenkins credentials
         APP_DIR = "/home/ubuntu/springboot-app"
-        EMAIL = "your-email@gmail.com"
+        EMAIL = "panjakras@gmail.com"
     }
 
     stages {
@@ -28,7 +28,11 @@ pipeline {
                         # Check if the directory already exists
                         if [ ! -d "${APP_DIR}" ]; then
                             # If it does not exist, clone the repo
-                            git clone https://github.com/your-username/your-repo.git ${APP_DIR}
+                            git clone https://github.com/arpankumarpanja/springboot-ecom.git ${APP_DIR}
+                            cd ${APP_DIR}
+                            // git pull origin main
+                            git checkout deploy
+                            git pull origin monolithic
                         else
                             # If it does exist, navigate in and pull the latest changes
                             cd ${APP_DIR}
@@ -43,7 +47,7 @@ pipeline {
                         docker compose up --build -d
                     '
                     """
-                }
+                } 
             }
         }
 
