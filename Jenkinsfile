@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Variables for your deployment
         EC2_USER = "ubuntu"
-        EC2_IP = "16.16.166.43" // Replace with your EC2 Public IP
+        EC2_IP = "13.50.100.62" // Replace with your EC2 Public IP
         SSH_CREDENTIAL_ID = "aws-ec2-key" // The ID from Jenkins credentials
         APP_DIR = "/home/ubuntu/springboot-app"
         EMAIL = "panjakras@gmail.com"
