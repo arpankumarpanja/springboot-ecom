@@ -2,6 +2,7 @@ services:
   mysql_db:
     image: mysql:8.0
     container_name: mysql_container
+    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -22,6 +23,7 @@ services:
     build:
       context: ./php
     container_name: php_adminer
+    restart: unless-stopped
     ports:
       - "8081:80"
     depends_on:
@@ -33,6 +35,7 @@ services:
   springboot_app:
     build: . # Tells Compose to look for your Dockerfile in this directory
     container_name: springboot_container
+    restart: unless-stopped
     ports:
       - "8088:8088" # Maps port 8088 on your EC2 to port 8088 inside Spring Boot
     environment:
