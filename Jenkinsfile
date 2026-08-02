@@ -44,8 +44,8 @@ pipeline {
                         # Navigate to the app directory and restart the containers
                         cd ${APP_DIR}
                         docker compose down
-                        docker image prune -f
                         docker builder prune -f
+                        docker image prune -f
                         docker compose build --no-cache
                         docker compose up --build -d
                     '
