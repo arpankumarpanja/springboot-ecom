@@ -4,6 +4,7 @@ WORKDIR /app
 # Copy the pom.xml and source code into the container
 COPY pom.xml .
 COPY src ./src
+RUN mvn dependency:go-offline
 # Run the maven command to build the jar file
 RUN mvn clean package -DskipTests
 
