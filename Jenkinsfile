@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sshagent(credentials: [SSH_CREDENTIAL_ID]) {
                     
-                    // SSH into EC2, check if the folder exists, clone or pull the repo, and run Docker Compose
+                    // SSH into EC2, check if the folder exists, clone or pull the repo, and run Docker Compose 
                     sh """
                     ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} '
                         # Check if the directory already exists
