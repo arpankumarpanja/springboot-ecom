@@ -32,13 +32,13 @@ pipeline {
                             cd ${APP_DIR}
                             // git pull origin main
                             git checkout deploy
-                            git pull origin monolithic
+                            git pull origin deploy
                         else
                             # If it does exist, navigate in and pull the latest changes
                             cd ${APP_DIR}
                             // git pull origin main
                             git checkout deploy
-                            git pull origin monolithic
+                            git pull origin deploy
                         fi
                         
                         # Navigate to the app directory and restart the containers
